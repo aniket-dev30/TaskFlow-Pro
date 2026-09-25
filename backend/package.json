@@ -1,0 +1,22 @@
+{
+  "name": "taskflow-pro-backend",
+  "version": "1.0.0",
+  "description": "TaskFlow Pro - Dependency-Aware Workflow and DAG Scheduling Engine",
+  "main": "src/server.js",
+  "type": "commonjs",
+  "scripts": {
+    "test": "jest --runInBand",
+    "start": "node src/server.js",
+    "migrate": "node migrations/run.js",
+    "seed": "node migrations/seed.js"
+  },
+  "dependencies": {
+    "express": "^4.19.2",
+    "pg": "^8.12.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0"
+  }
+}
