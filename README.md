@@ -10,6 +10,51 @@ Built for the Contata Hackathon 2026 (TaskFlow Pro problem statement).
 - `frontend/` — React + TypeScript Kanban board, drag-and-drop,
   dependency management, and Gemini-backed AI suggestions.
 
+  ## Architecture & Data Model
+
+### Architecture
+
+TaskFlow Pro uses a three-layer architecture:
+
+- **Frontend:** React + TypeScript Kanban UI. Handles task interaction,
+  drag-and-drop, dependency management, and AI suggestion review.
+- **Backend:** Node.js + Express REST API. Owns task validation,
+  dependency validation, DAG cycle detection, Ready/Blocked derivation,
+  and date propagation.
+- **Database:** PostgreSQL. Persists tasks and dependency edges.
+
+The dependency engine is kept separate from the UI so the core DAG rules
+can be tested independently of any frontend code.
+
+### Data Model
+
+#### `tasks`
+
+| Field         | Purpose                                             |
+|---------------|-------------------------------------------------------|
+| `id`          | Unique task identifier                                |
+| `title`       | Task name                                             |
+| `description` | Task details/context                                  |
+| `column_name` | Kanban column: Backlog / InProgress / Review / Done   |
+| `start_date`  | Scheduled start                                       |
+| `end_date`    | Scheduled end                                         |
+| `created_at`  | Creation timestamp                                    |
+
+Ready/Blocked is NOT a stored field. It is derived at read-time from
+whether every prerequisite task's `column_name` is `Done` — this keeps
+readiness always consistent with the graph rather than risking it
+drifting out of sync with a separately stored flag.
+
+#### `dependencies`
+
+| Field           | Purpose                     |
+|-----------------|-------------------------------|
+| `task_id`       | Dependent/downstream task     |
+| `depends_on_id` | Required prerequisite task    |
+
+Both columns are foreign keys into `tasks.id`, together forming a
+directed edge list representing the dependency graph.
+
 ## Quick start
 
 ```bash
