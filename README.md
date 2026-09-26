@@ -10,7 +10,7 @@ Built for the Contata Hackathon 2026 (TaskFlow Pro problem statement).
 - `frontend/` — React + TypeScript Kanban board, drag-and-drop,
   dependency management, and Gemini-backed AI suggestions.
 
-  ## Architecture & Data Model
+## Architecture & Data Model
 
 ### Architecture
 
