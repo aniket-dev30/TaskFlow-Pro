@@ -1,7 +1,5 @@
 # TaskFlow Pro — Dependency-Aware Workflow and DAG Scheduling Engine
 
-Built for the Contata Hackathon 2026 (TaskFlow Pro problem statement).
-
 ## Structure
 
 - `backend/` — the dependency engine (cycle detection, Ready/Blocked
